@@ -24,8 +24,6 @@
 				</div>
 				<div class="account-dialog-actions">
 					<button type="submit" class="btn btn-primary">Sign in</button>
-					<a class="account-dialog-link" href="signup.html">Create a new
-						account</a>
 				</div>
 			</form>
 		</div>

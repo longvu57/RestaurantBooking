@@ -2,6 +2,12 @@
 	<decorator name="user" page="user.jsp">
 		<pattern>/*</pattern>
 	</decorator>
+	<decorator name="userLogin" page="userLogin.jsp">
+		<pattern>/login*</pattern>
+	</decorator>
+	<decorator name="userRegister" page="userRegister.jsp">
+		<pattern>/register*</pattern>
+	</decorator>
 	<decorator name="admin" page="admin.jsp">
 		<pattern>/admin*</pattern>
 	</decorator>

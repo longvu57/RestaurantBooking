@@ -1,14 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
+
 <body>
   <section id="contact" class="section-padding">
     <div class="container">
       <div class="row">
         <div class="col-md-12 text-center">
           <h1 class="header-h">Book Your table</h1>
-          <p class="header-p">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy
-            <br>nibh euismod tincidunt ut laoreet dolore magna aliquam. </p>
+          <p class="header-p">Tell us which table you want to book! We will try to give you the best service ever in HANU </p>
         </div>
       </div>
       <div class="row msg-row">
@@ -19,7 +20,7 @@
             </div>
             <div class="media-body">
               <h4 class="dark-blue regular">Phone Numbers</h4>
-              <p class="light-blue regular alt-p">+440 875369208 - <span class="contacts-sp">Phone Booking</span></p>
+              <p class="light-blue regular alt-p">+84 985 685 265 - <span class="contacts-sp">Phone Booking</span></p>
             </div>
           </div>
           <div class="media-2">
@@ -36,59 +37,44 @@
           </div>
         </div>
         <div class="col-md-8 col-sm-8">
-          <form action="" method="post" role="form" class="contactForm">
+          <form:form action="booking" method="post" role="form" modelAttribute = "seat">
             <div id="sendmessage">Your booking request has been sent. Thank you!</div>
             <div id="errormessage"></div>
-            <div class="col-md-6 col-sm-6 contact-form pad-form">
-              <div class="form-group label-floating is-empty">
-                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
-                <div class="validation"></div>
-              </div>
-
-            </div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <input type="date" class="form-control label-floating is-empty" name="date" id="date" placeholder="Date" data-rule="required" data-msg="This field is required" />
-                <div class="validation"></div>
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-6 contact-form pad-form">
-              <div class="form-group">
-                <input type="email" class="form-control label-floating is-empty" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                <form:input type="date" class="form-control label-floating is-empty" path="date" id="date" placeholder="Date" data-rule="required" data-msg="This field is required" />
                 <div class="validation"></div>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <input type="time" class="form-control label-floating is-empty" name="time" id="time" placeholder="Time" data-rule="required" data-msg="This field is required" />
+                <form:input type="time" class="form-control label-floating is-empty" path="time" id="time" placeholder="Time" data-rule="required" data-msg="This field is required" />
                 <div class="validation"></div>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <input type="text" class="form-control label-floating is-empty" name="phone" id="phone" placeholder="Phone" data-rule="required" data-msg="This field is required" />
-                <div class="validation"></div>
-              </div>
-            </div>
-            <div class="col-md-6 col-sm-6 contact-form">
-              <div class="form-group">
-                <input type="text" class="form-control label-floating is-empty" name="people" id="people" placeholder="People" data-rule="required" data-msg="This field is required" />
+                <form:select path="seatName" class="form-control">
+                <c:forEach var="seatName" items="${seatNames}">
+                	<form:option value="${seatName}">${seatName}</form:option>
+                </c:forEach>                	   
+                </form:select>
                 <div class="validation"></div>
               </div>
             </div>
             <div class="col-md-12 contact-form">
               <div class="form-group label-floating is-empty">
-                <textarea class="form-control" name="message" rows="5" rows="3" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                <form:textarea class="form-control" path="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></form:textarea>
                 <div class="validation"></div>
               </div>
 
             </div>
             <div class="col-md-12 btnpad">
               <div class="contacts-btn-pad">
-                <button class="contacts-btn">Book Table</button>
+                <input type="submit" class="contacts-btn" value="Book table"/>
               </div>
             </div>
-          </form>
+          </form:form>
         </div>
       </div>
     </div>

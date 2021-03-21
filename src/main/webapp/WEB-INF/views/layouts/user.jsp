@@ -14,6 +14,7 @@
   <meta name="keywords" content="free website templates, free bootstrap themes, free template, free bootstrap, free website template">
 
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Satisfy|Bree+Serif|Candal|PT+Sans">
+  <link href="https://fonts.googleapis.com/css?family=Indie Flower" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="<c:url value="/assets/user/css/font-awesome.min.css"/>">
   <link rel="stylesheet" type="text/css" href="<c:url value="/assets/user/css/bootstrap.min.css"/>"> 
   <link rel="stylesheet" type="text/css" href="<c:url value="/assets/user/css/style.css"/>">
@@ -29,8 +30,6 @@
   <script src="<c:url value="/assets/user/js/jquery.easing.min.js"/>"></script>
   <script src="<c:url value="/assets/user/js/bootstrap.min.js"/>"></script>
   <script src="<c:url value="/assets/user/js/custom.js"/>"></script>
-  <script src="<c:url value="/assets/user/contactform/contactform.js"/>"></script>
-
 </body>
 
 </html>

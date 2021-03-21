@@ -1,10 +1,3 @@
-/*!
- * easion - Bootstrap dashboard template based on Bootstrap 4
- * Version v1.0.1
- * Copyright 2016 - 2020 Mudimedia Software
- * https://mudimedia.com
- */
-
 const mobileBreakpoint = window.matchMedia("(max-width: 991px )");
 
 $(document).ready(function(){
@@ -30,8 +23,4 @@ $(document).ready(function(){
     $(".searchbox-toggle").click(function(){
         $(".searchbox").toggleClass("show");
     });
-
-    // Dev utilities
-    // $("header.dash-toolbar .menu-toggle").click();
-    // $(".searchbox-toggle").click();
 });
