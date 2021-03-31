@@ -22,7 +22,7 @@
 							<div class="form-group">
 								<form:input type="text" class="form-control label-floating is-empty"
 									path="username" id="name" placeholder="Username"
-									data-rule="name" data-msg="Please enter a valid username" />
+									data-rule="name" data-msg="Please enter a valid username" required="true"/>
 								<div class="validation"></div>
 							</div>
 						</div>
@@ -30,7 +30,7 @@
 							<div class="form-group">
 								<form:input type="password" class="form-control label-floating is-empty"
 									path="password" id="password" placeholder="Password"
-									data-rule="required" data-msg="This field is required" />
+									data-rule="required" data-msg="This field is required" required="true"/>
 								<div class="validation"></div>
 							</div>
 						</div>
@@ -38,7 +38,7 @@
 							<div class="form-group">
 								<form:input type="text" class="form-control label-floating is-empty"
 									path="phone" id="phone" placeholder="Phone number"
-									data-rule="phone" data-msg="Please enter a valid phone" />
+									data-rule="phone" data-msg="Please enter a valid phone" required="true"/>
 								<div class="validation"></div>
 							</div>
 						</div>
@@ -46,7 +46,7 @@
 							<div class="form-group">
 								<form:input type="email" class="form-control label-floating is-empty"
 									path="email" id="email" placeholder="Email"
-									data-rule="phone" data-msg="Please enter a valid email" />
+									data-rule="phone" data-msg="Please enter a valid email" required="true"/>
 								<div class="validation"></div>
 							</div>
 						</div>

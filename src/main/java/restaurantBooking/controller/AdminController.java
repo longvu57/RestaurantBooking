@@ -54,7 +54,6 @@ public class AdminController {
 	public String getTable(Model model) {
 		List<Seat> seats = new ArrayList<Seat>();
 		seats = adminDao.getAllSeats();
-//		System.out.println(seats.get(1).getUsers().get(0).getPhone());
 		model.addAttribute("seats", seats);
 		return "admin/manage-table";
 	}

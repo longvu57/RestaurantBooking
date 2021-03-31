@@ -2,6 +2,7 @@ package restaurantBooking.controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import restaurantBooking.dao.HomeDao;
+import restaurantBooking.entity.Cart;
 import restaurantBooking.entity.Menu;
 import restaurantBooking.entity.OrderLine;
 import restaurantBooking.entity.Seat;
@@ -37,6 +39,11 @@ public class HomeController {
 		model.addAttribute("error", error);
 		model.addAttribute("success", success);
 		return "user/login";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/404")
+	public String accessDeny() {
+		return "user/404";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/logout")
@@ -124,23 +131,39 @@ public class HomeController {
 		return "redirect:/";
 	}
 
+//	@RequestMapping(method = RequestMethod.GET, value = "/buy")
+//	public String addToCart(@RequestParam("id") int id, HttpSession session) {
+//		if (session.getAttribute("cart") == null) {
+//			List<OrderLine> cart = new ArrayList<OrderLine>();
+//			cart.add(new OrderLine(dao.findFoodById(id), 1));
+//			session.setAttribute("cart", cart);
+//		} else {
+//			List<OrderLine> cart = (List<OrderLine>) session.getAttribute("cart");
+//			int index = exists(id, cart);
+//			if (index == -1) {
+//				cart.add(new OrderLine(dao.findFoodById(id), 1));
+//			} else {
+//				int quantity = cart.get(index).getQuantity() + 1;
+//				cart.get(index).setQuantity(quantity);
+//			}
+//			session.setAttribute("cart", cart);
+//		}
+//		return "redirect:/cart";
+//	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/buy")
-	public String addToCart(@RequestParam("id") int id, HttpSession session) {
-		if (session.getAttribute("cart") == null) {
-			List<OrderLine> cart = new ArrayList<OrderLine>();
-			cart.add(new OrderLine(dao.findFoodById(id), 1));
-			session.setAttribute("cart", cart);
-		} else {
-			List<OrderLine> cart = (List<OrderLine>) session.getAttribute("cart");
-			int index = exists(id, cart);
-			if (index == -1) {
-				cart.add(new OrderLine(dao.findFoodById(id), 1));
-			} else {
-				int quantity = cart.get(index).getQuantity() + 1;
-				cart.get(index).setQuantity(quantity);
-			}
-			session.setAttribute("cart", cart);
+	public String addCart(HttpSession session, @RequestParam("id") int id, Principal principal) {
+		String username = principal.getName();
+		User user = dao.findByUser(username);
+		
+		HashMap<Integer, Cart> cart =  (HashMap<Integer, Cart>) session.getAttribute("cart");
+		if(cart == null) {
+			cart = new HashMap<Integer, Cart>();
 		}
+		cart = dao.addCart(id, cart);
+		session.setAttribute("cart", cart);
+		session.setAttribute("user", user);
+		session.setAttribute("totalPrice", dao.totalPrice(cart));
 		return "redirect:/cart";
 	}
 

@@ -25,11 +25,9 @@ table {
 #banner{
     background: url(../img/banner-bg.jpg) no-repeat center top;
     background-size: cover;
-    min-height: 630px;
 }
 .bg-color{
     background-color: RGBA(0, 0, 0, 0.61);
-    min-height: 630px;
 }
 #banner h2{
     font-family: 'Indie Flower', sans-serif;
@@ -47,7 +45,6 @@ table {
 .logo-name{
     font-family: 'Indie Flower', sans-serif;
     font-size: 65px;
-    margin-top: 140px;
     color: #7AA802;
 }
 .sidenav {
