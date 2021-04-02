@@ -25,7 +25,7 @@
 		<property name="driverClassName"
 			value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="url"
-			value="us-cdbr-east-03.cleardb.com"></property>
+			value="us-cdbr-east-03.cleardb.com/heroku_9339a0a62398a4b"></property>
 		<property name="username" value="be7e348daf0523"></property>
 		<property name="password" value="19ace7a8 "></property>
 	</bean>
