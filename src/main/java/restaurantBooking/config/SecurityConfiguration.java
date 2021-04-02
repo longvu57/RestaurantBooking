@@ -12,11 +12,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+	@Autowired
+    public SecurityConfiguration(AuthenticationSuccessHandler authenticationSuccessHandler) {
+        this.authenticationSuccessHandler = authenticationSuccessHandler;
+    }
     @Autowired
     private DataSource dataSource;
      
@@ -40,7 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		.and().formLogin().loginPage("/login")
 		.loginProcessingUrl("/login").usernameParameter("username").passwordParameter("password")
-		.defaultSuccessUrl("/").failureUrl("/login?error=failed").and().exceptionHandling().accessDeniedPage("/404");
+		.successHandler(authenticationSuccessHandler).failureUrl("/login?error=failed").and().exceptionHandling().accessDeniedPage("/404");
 	}
 
     @Bean

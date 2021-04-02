@@ -156,4 +156,10 @@ public class HomeDao {
 		}
 		return totalPrice;
 	}
+	
+	public int order(User user, String content, Double totalPrice) {
+		String sql = "INSERT INTO orders(totalMoney, userName, phone, address, status, userId, content) VALUES (?,?,?,?,?,?,?)";
+		template.update(sql, totalPrice, user.getUsername(), user.getPhone(), "Luong The Vinh", 3, user.getId(), content);
+		return 0;
+	}
 }

@@ -4,7 +4,7 @@
     
 <main class="dash-content">
                 <div class="container-fluid">
-                    <h1 class="dash-title">Your order</h1>
+                    <h1 class="dash-title">Orders</h1>
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card easion-card">
@@ -23,57 +23,48 @@
                                                 <th scope="col">Phone</th>
                                                 <th scope="col">Address</th>
                                                 <th scope="col">Status</th>
-                                                <th scope="col">Note</th>
+                                                <th scope="col">Content</th>
+                                                <th scope="col">Total</th>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
                                                 <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
+                                        <c:forEach var="order" items="${orders}">
                                         	<tr>
-                                                <th scope="row">1</th>
-                                                <td scope="row">Viet Quoc</td>
-                                                <td scope="row">0868955866</td>
-                                                <td scope="row">788, Nguyen Xien,Thanh Xuan</td>
-                                                <td scope="row">Waiting ...</td>
-                                                <td scope="row"></td>
-                                                <td><button type="button" class="btn btn-warning">SHIP</button></td>
-                                                <td><button type="button" class="btn btn-danger">REJECT</button></td>
-                                                <td><button type="button" class="btn btn-primary">ACCEPT</button></td>
+                                                <th scope="row">${order.getId()}</th>
+                                                <td scope="row">${order.getUserName()}</td>
+                                                <td scope="row">${order.getPhone()}</td>
+                                                <td scope="row">${order.getAddress()}</td>
+                                                <td scope="row">
+                                                	<c:if test="${order.getStatus()==0}">Rejected</c:if>
+                                                	<c:if test="${order.getStatus()==1}">Accepted</c:if>
+                                                	<c:if test="${order.getStatus()==2}">Shipped</c:if>
+                                                	<c:if test="${order.getStatus()==3}">Waiting for process</c:if>
+                                                </td>
+                                                <td scope="row"><a class="page-link" href="<c:url value="/admin/order-details?id=${order.getId()}"/>">Order details</a></td>
+                                                <td scope="row">${order.getTotalMoney()}K</td>
+                                                <td>
+                                                	<form method="POST" action="reject-order">
+                                                		<input name="id" type="number" hidden="true" value="${order.getId()}"/>
+    													<button type="submit" class="btn btn-danger">REJECT</button>
+													</form>
+                                                </td>
+                                                <td>
+                                                	<form method="POST" action="accept-order">
+                                                		<input name="id" type="number" hidden="true" value="${order.getId()}}"/>
+    													<button type="submit" class="btn btn-primary">ACCEPT</button>
+													</form>
+                                                </td>
+                                                <td>
+                                                	<form method="POST" action="ship-order">
+                                                		<input name="id" type="number" hidden="true" value="${order.getId()}"/>
+    													<button type="submit" class="btn btn-warning">SHIP</button>
+													</form>
+                                                </td>
                                             </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <td scope="row">Dinh Tuan</td>
-                                                <td scope="row">09785966358</td>
-                                                <td scope="row">19, Nguyen Van Troi, Ha Dong</td>
-                                                <td scope="row">Rejected</td>
-                                                <td scope="row">Customer does not respond!</td>
-                                                <td><button type="button" class="btn btn-warning">SHIP</button></td>
-                                                <td><button type="button" class="btn btn-danger">REJECT</button></td>
-                                                <td><button type="button" class="btn btn-primary">ACCEPT</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <td scope="row">Van Hoa</td>
-                                                <td scope="row">0965975263</td>
-                                                <td scope="row">278, Nguyen Trai, Thanh Xuan</td>
-                                                <td scope="row">Accepted</td>
-                                                <td scope="row"></td>
-                                                <td><button type="button" class="btn btn-warning">SHIP</button></td>
-                                                <td><button type="button" class="btn btn-danger">REJECT</button></td>
-                                                <td><button type="button" class="btn btn-primary">ACCEPT</button></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <td scope="row">Van Hoang</td>
-                                                <td scope="row">0978955866</td>
-                                                <td scope="row">125, Chien Thang, Ha Dong</td>
-                                                <td scope="row">Shipped</td>
-                                                <td scope="row"></td>
-                                                <td><button type="button" class="btn btn-warning">SHIP</button></td>
-                                                <td><button type="button" class="btn btn-danger">REJECT</button></td>
-                                                <td><button type="button" class="btn btn-primary">ACCEPT</button></td>
-                                            </tr>
+                                        </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>

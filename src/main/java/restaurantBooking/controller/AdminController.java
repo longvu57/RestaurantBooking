@@ -1,5 +1,6 @@
 package restaurantBooking.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,11 +16,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import restaurantBooking.dao.AdminDao;
 import restaurantBooking.dao.HomeDao;
 import restaurantBooking.entity.EmailContent;
 import restaurantBooking.entity.Menu;
+import restaurantBooking.entity.Order;
+import restaurantBooking.entity.OrderDetail;
 import restaurantBooking.entity.Seat;
+import restaurantBooking.entity.User;
 
 @Controller
 public class AdminController {
@@ -57,6 +64,14 @@ public class AdminController {
 		model.addAttribute("seats", seats);
 		return "admin/manage-table";
 	}
+	
+	@RequestMapping("/admin/manage-user")
+	public String getUser(Model model) {
+		List<User> users = new ArrayList<User>();
+		users = adminDao.getAllUsers();
+		model.addAttribute("users", users);
+		return "admin/manage-user";
+	}
 
 	@RequestMapping("/admin/accept-table")
 	public String acceptTable(@RequestParam int id) {
@@ -71,10 +86,48 @@ public class AdminController {
 	}
 
 	@RequestMapping("/admin/manage-order")
-	public String getOrders() {
+	public String getOrders(Model model) {
+		List<Order> orders = new ArrayList<Order>();
+		orders = adminDao.getAllOrders();
+		model.addAttribute("orders", orders);
 		return "admin/manage-order";
 	}
-
+	
+	@RequestMapping("/admin/order-details")
+	public String orderDetails(@RequestParam int id, Model model) {
+		Order order = adminDao.getOrderById(id);
+		String content = order.getContent();
+		String username = order.getUserName();
+		ObjectMapper mapper = new ObjectMapper();
+		
+		try {
+			JsonNode contentObject = mapper.readTree(content);
+			System.out.println(contentObject);
+			List<OrderDetail> orderDetails = new ArrayList<OrderDetail>();
+			for (int i = 0; i < contentObject.size(); i++) {
+				OrderDetail orderDetail = new OrderDetail();
+				JsonNode item = contentObject.get(i);
+				String foodName = item.get("menu").get("foodName").asText();
+				double foodPrice = item.get("menu").get("foodPrice").asDouble();
+				int quantity = item.get("quantity").asInt();
+				double subTotal = item.get("subTotal").asDouble();
+				
+				orderDetail.setFoodName(foodName);
+				orderDetail.setFoodPrice(foodPrice);
+				orderDetail.setQuantity(quantity);
+				orderDetail.setSubTotal(subTotal);
+				
+				orderDetails.add(orderDetail);
+			}
+			model.addAttribute("content", orderDetails);
+			model.addAttribute("username", username);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return "admin/details-order";
+	}
+	
 	@RequestMapping("/admin/profile")
 	public String getProfile() {
 		return "admin/edit-admin-profile";
@@ -88,17 +141,17 @@ public class AdminController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/admin/send-advertisement")
-	public String sendAdvertisement(@ModelAttribute("content")EmailContent content,Model model) {
+	public String sendAdvertisement(@ModelAttribute("content") EmailContent content, Model model, @RequestParam("email")String email) {
 		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("emailContext.xml");
-	    MailSender mailSender = (MailSender) context.getBean("mailSender");
-	    SimpleMailMessage message = new SimpleMailMessage();
-	    message.setFrom("hanurestaurant@gmail.com");
-	    message.setTo(content.getEmail());
-	    message.setSubject(content.getSubject());
-	    message.setText(content.getContent());
-	    mailSender.send(message);
-	    context.close();
-		return "redirect:/admin/send-advertisement";
+		MailSender mailSender = (MailSender) context.getBean("mailSender");
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setFrom("hanurestaurant@gmail.com");
+		message.setTo(email);
+		message.setSubject("Hanu Restaurant Recruitment");
+		message.setText("HANU Restaurant has a vacancy for a shop keeper to work in the area of sales and marketing, particularly with our household.");
+		mailSender.send(message);
+		context.close();
+		return "redirect:/admin/manage-user";
 	}
 
 	@RequestMapping("/admin/success")
@@ -152,5 +205,23 @@ public class AdminController {
 			model.addAttribute("error", error);
 			return "redirect:/admin";
 		}
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/admin/ship-order")
+	public String shipOrder(@RequestParam("id") int id) {
+		adminDao.ship(id);
+		return "redirect:/admin/manage-order";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/admin/reject-order")
+	public String rejectOrder(@RequestParam("id") int id) {
+		adminDao.reject(id);
+		return "redirect:/admin/manage-order";
+	}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/admin/accept-order")
+	public String acceptOrder(@RequestParam("id") int id) {
+		adminDao.accept(id);
+		return "redirect:/admin/manage-order";
 	}
 }

@@ -4,6 +4,8 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import restaurantBooking.dao.HomeDao;
 import restaurantBooking.entity.Cart;
 import restaurantBooking.entity.Menu;
-import restaurantBooking.entity.OrderLine;
 import restaurantBooking.entity.Seat;
 import restaurantBooking.entity.User;
 
@@ -74,7 +78,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(method = RequestMethod.GET, value = "/")
+	@RequestMapping(method = RequestMethod.GET, value = {"/", "home"})
 	public String home() {
 		return "user/about";
 	}
@@ -130,26 +134,6 @@ public class HomeController {
 		}
 		return "redirect:/";
 	}
-
-//	@RequestMapping(method = RequestMethod.GET, value = "/buy")
-//	public String addToCart(@RequestParam("id") int id, HttpSession session) {
-//		if (session.getAttribute("cart") == null) {
-//			List<OrderLine> cart = new ArrayList<OrderLine>();
-//			cart.add(new OrderLine(dao.findFoodById(id), 1));
-//			session.setAttribute("cart", cart);
-//		} else {
-//			List<OrderLine> cart = (List<OrderLine>) session.getAttribute("cart");
-//			int index = exists(id, cart);
-//			if (index == -1) {
-//				cart.add(new OrderLine(dao.findFoodById(id), 1));
-//			} else {
-//				int quantity = cart.get(index).getQuantity() + 1;
-//				cart.get(index).setQuantity(quantity);
-//			}
-//			session.setAttribute("cart", cart);
-//		}
-//		return "redirect:/cart";
-//	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/buy")
 	public String addCart(HttpSession session, @RequestParam("id") int id, Principal principal) {
@@ -171,14 +155,31 @@ public class HomeController {
 	public String viewCart(Model model) {
 		return "user/cart";
 	}
-
-	private int exists(int id, List<OrderLine> cart) {
-		for (int i = 0; i < cart.size(); i++) {
-			if (cart.get(i).getMenu().getId() == id) {
-				return i;
-			}
+	
+	@RequestMapping(method = RequestMethod.POST, value = "/placeOrder")
+	public String placeOrder(HttpSession session, Principal principal, Model model) {
+		HashMap<Integer, Cart> cart = (HashMap<Integer, Cart>) session.getAttribute("cart");
+		ObjectMapper mapper = new ObjectMapper();
+		List<Cart> items = new ArrayList<Cart>();
+		double totalPrice = (double) session.getAttribute("totalPrice");
+		for (Map.Entry<Integer, Cart> entry: cart.entrySet()) {
+			items.add(entry.getValue());
 		}
-		return -1;
+		
+		try {
+			String content = mapper.writeValueAsString(items);
+			System.out.println(content);
+			String username = principal.getName();
+			User user = dao.findByUser(username);
+			dao.order(user, content, totalPrice);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String message = "Order successfully!";
+		model.addAttribute("message", message);
+		session.removeAttribute("cart");
+		session.removeAttribute("totalPrice");
+		return "user/cart";
 	}
-
 }

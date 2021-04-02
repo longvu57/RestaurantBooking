@@ -13,8 +13,8 @@
                     <i class="fas fa-chair"></i> Manage Table </a>
                 <a href="<c:url value="/admin/manage-order"/>" class="dash-nav-item">
                     <i class="fas fa-money-check"></i> Manage Order </a>
-                <a href="<c:url value="/admin/send-advertisement"/>" class="dash-nav-item">
-                    <i class="far fa-envelope"></i> Send advertisement </a>
+                    <a href="<c:url value="/admin/manage-user"/>" class="dash-nav-item">
+                    <i class="fas fas fa-user"></i> Manage User </a>
                 
             </nav>
         </div>

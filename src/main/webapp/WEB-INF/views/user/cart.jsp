@@ -8,13 +8,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12 text-center marb-35">
+				<c:if test="${message != null}">
+					<h1 class="header-h">${message}</h1>
+				</c:if>
+				<c:if test="${message == null}">
 					<h1 class="header-h">Here are what you have ordered</h1>
 					<p class="header-p">
 						Process the order and enjoy it!
 					</p>
+				</c:if>
 				</div>
-				<c:set var="total" value="0" />
-				<c:forEach var="item" items="${cart}">
+				<c:forEach var="item" items="${sessionScope.cart}">
 					<div class="col-md-12" style="padding-bottom: 60px;">
 						<div class="item active left">
 							<div class="col-md-3 col-sm-3"></div>
@@ -66,7 +70,6 @@
                   			<p>Your order is now empty, grab some foods!</p>
                   		</c:if>                	
                         </div>
-					
 				</div>
 			</div>
 			<div class="col-md-3 col-sm-3"></div>

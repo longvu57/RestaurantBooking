@@ -72,7 +72,7 @@
                                     <div class="easion-card-icon">
                                         <i class="fas fa-table"></i>
                                     </div>
-                                    <div class="easion-card-title">Table with hover</div>
+                                    <div class="easion-card-title">List of foods</div>
                                 </div>
                                 <c:if test="${message!=null}">
                                     	<div class="alert alert-success" role="alert">${message}</div>
