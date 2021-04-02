@@ -22,9 +22,8 @@
 	</bean>
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="com.mysql.cj.jdbc.Driver"></property>
-		<property name="url" value="jdbc:mysql://us-cdbr-east-03.cleardb.com/heroku_9339a0a62398a4b?reconnect=true"></property>
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://be7e348daf0523:19ace7a8@us-cdbr-east-03.cleardb.com/heroku_9339a0a62398a4b?reconnect=true"></property>
 		<property name="username" value="be7e348daf0523"></property>
 		<property name="password" value="19ace7a8 "></property>
 	</bean>
