@@ -24,7 +24,7 @@
 							<div class="col-md-3 col-sm-3"></div>
 							<div class="col-md-3 col-sm-3 details-text">
 								<div class="content-holder">
-									<h2></h2>
+									<h3>${item.value.menu.getFoodName()}</h3>
 									<address>
 										<strong>Price: ${item.value.menu.getFoodPrice()}</strong> 
 										<span class="badge badge-secondary"> K</span> 
@@ -38,7 +38,7 @@
 								</div>
 							</div>
 							<div class="col-md-3 col-sm-3">
-								<img src="<c:url value="/assets/user/img/${item.value.menu.getImageUrl()}"/>" class="img-responsive">
+								<img src="<c:url value="${item.value.menu.getImageUrl()}"/>" class="img-responsive">
 							</div>
 							
 							<div class="col-md-3 col-sm-3"></div>

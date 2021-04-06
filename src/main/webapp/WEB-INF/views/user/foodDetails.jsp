@@ -12,7 +12,7 @@
 				<div class="col-md-12" style="padding-bottom: 60px;">
 					<div class="item active left">
 						<div class="col-md-6 col-sm-6 left-images">
-							<img src="<c:url value="/assets/user/img/${menu.imageUrl}"/>"
+							<img src="<c:url value="${menu.imageUrl}"/>"
 								class="img-responsive">
 						</div>
 						<div class="col-md-6 col-sm-6 details-text">

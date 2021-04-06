@@ -16,7 +16,6 @@ import restaurantBooking.entity.Menu;
 import restaurantBooking.entity.Order;
 import restaurantBooking.entity.OrderMapper;
 import restaurantBooking.entity.Seat;
-import restaurantBooking.entity.SeatMapper;
 import restaurantBooking.entity.User;
 import restaurantBooking.entity.UserMapper;
 
@@ -76,48 +75,51 @@ public class AdminDao {
 		});
 		return seatsWithUsers;
 	}
-	
+
 	public int accepTable(int id) {
-		String sql = "UPDATE seats SET status = 2 WHERE id = " +id;
+		String sql = "UPDATE seats SET status = 2 WHERE id = " + id;
 		return template.update(sql);
 	}
-	
+
 	public int finishTable(int id) {
-		String sql = "UPDATE seats SET status = 0 WHERE id = " +id;
+		String sql = "UPDATE seats SET status = 0 WHERE id = " + id;
 		return template.update(sql);
 	}
-	
+
 	public List<Order> getAllOrders() {
 		String sql = "SELECT * FROM orders";
 		List<Order> orders = new ArrayList<Order>();
 		orders = template.query(sql, new OrderMapper());
 		return orders;
 	}
-	
+
 	public List<User> getAllUsers() {
 		String sql = "SELECT * FROM users";
 		List<User> users = new ArrayList<User>();
 		users = template.query(sql, new UserMapper());
 		return users;
 	}
-	
+
 	public Order getOrderById(int id) {
-		String sql = "SELECT * FROM orders WHERE id="+id;
+		String sql = "SELECT * FROM orders WHERE id=" + id;
 		List<Order> orders = new ArrayList<Order>();
 		orders = template.query(sql, new OrderMapper());
 		return orders.size() > 0 ? orders.get(0) : null;
 	}
-	
+
 	public int ship(int id) {
-		String sql = "UPDATE orders SET status = 2 WHERE id = " +id;
+		String sql = "UPDATE orders SET status = 2 WHERE id = " + id;
 		return template.update(sql);
 	}
+
 	public int reject(int id) {
-		String sql = "UPDATE orders SET status = 0 WHERE id = " +id;
+		String sql = "UPDATE orders SET status = 0 WHERE id = " + id;
 		return template.update(sql);
 	}
+
 	public int accept(int id) {
-		String sql = "UPDATE orders SET status = 1 WHERE id = " +id;
+		String sql = "UPDATE orders SET status = 1 WHERE id = " + id;
 		return template.update(sql);
 	}
+
 }

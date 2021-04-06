@@ -23,41 +23,41 @@
                                     	<div class="alert alert-success" role="alert">${success}</div>
                                     </c:if>
                                 <div class="card-body ">
-                                    <form:form action="admin/add-food" method= 'POST' modelAttribute="menu">
+                                    <form action="admin/add-food" method= 'POST' enctype="multipart/form-data">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="v">Food Name</label>
-                                                <form:input type="text" path="foodName" class="form-control" id="name" placeholder="Enter name of the food" required="true"/>
+                                                <input type="text" name="foodName" class="form-control" id="name" placeholder="Enter name of the food" />
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="price">Food Price</label>
-                                                <form:input type="text" path="foodPrice" class="form-control" id="price" placeholder="Enter the food price" required="true"/>
+                                                <input type="text" name="foodPrice" class="form-control" id="price" placeholder="Enter the food price" />
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Food Description</label>
-                                            <form:input type="text" path = "foodDescription" class="form-control" id="description" placeholder="Give the food a description" required="true"/>
+                                            <input type="text" name = "foodDescription" class="form-control" id="description" placeholder="Give the food a description" />
                                         </div>
                                         <div class="form-group">
                                             <label for="subtitle">Subtitle</label>
-                                            <form:input type="text" path="subtitle" class="form-control" id="subtitle" placeholder="Enter the subtitle for each food" required="true"/>
+                                            <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter the subtitle for each food" />
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="image">Image</label>
-                                                <form:input type="file" path="imageUrl" class="form-control" id="image" required="true"/>
+                                                <input type="file" name="imageUrl" class="form-control" id="image" />
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="foodType">Food Type</label>
-                                                <form:select id="foodType" class="form-control" path="foodType" required="true">
+                                                <select id="foodType" class="form-control" name="foodType" >
                                                     <option value="0">Breakfast</option>
                                                     <option value="1">Launch</option>
                                                     <option value="2">Dinner</option>                                                    
-                                                </form:select>
+                                                </select>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Add Now!</button>
-                                    </form:form>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -109,8 +109,7 @@
                                                 <c:if test="${food.foodType == 2}">
                                                 <td>Dinner</td>
                                                 </c:if>
-                                                
-                                                <td><img src="<c:url value="/assets/admin/img/${food.imageUrl}"/>" class="img-fluid img-thumbnail"></td>
+                                                <td><img src="<c:url value="${food.imageUrl}"/>" class="img-fluid img-thumbnail"></td>
                                                 <td><a href="<c:url value="admin/remove?foodId=${food.id}"/>" class="btn btn-danger" role="button">REMOVE</a></td>
                                                 <td><a href="<c:url value="admin/edit?foodId=${food.id}"/>" class="btn btn-primary" role="button">EDIT</a></td>
                                             </tr>
