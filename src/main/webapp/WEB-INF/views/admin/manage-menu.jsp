@@ -27,29 +27,29 @@
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="v">Food Name</label>
-                                                <input type="text" name="foodName" class="form-control" id="name" placeholder="Enter name of the food" />
+                                                <input type="text" name="foodName" class="form-control" id="name" placeholder="Enter name of the food" required/>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="price">Food Price</label>
-                                                <input type="text" name="foodPrice" class="form-control" id="price" placeholder="Enter the food price" />
+                                                <input type="text" name="foodPrice" class="form-control" id="price" placeholder="Enter the food price" required/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="description">Food Description</label>
-                                            <input type="text" name = "foodDescription" class="form-control" id="description" placeholder="Give the food a description" />
+                                            <input type="text" name = "foodDescription" class="form-control" id="description" placeholder="Give the food a description" required/>
                                         </div>
                                         <div class="form-group">
                                             <label for="subtitle">Subtitle</label>
-                                            <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter the subtitle for each food" />
+                                            <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Enter the subtitle for each food" required/>
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
                                                 <label for="image">Image</label>
-                                                <input type="file" name="imageUrl" class="form-control" id="image" />
+                                                <input type="file" name="imageUrl" class="form-control" id="image" required/>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label for="foodType">Food Type</label>
-                                                <select id="foodType" class="form-control" name="foodType" >
+                                                <select id="foodType" class="form-control" name="foodType" required>
                                                     <option value="0">Breakfast</option>
                                                     <option value="1">Launch</option>
                                                     <option value="2">Dinner</option>                                                    

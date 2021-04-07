@@ -44,6 +44,8 @@ import restaurantBooking.entity.User;
 
 @Controller
 public class AdminController {
+	private final String ACCESS_KEY = "AKIATYVICPYH2CYRSP4C";
+	private final String SECRET_KEY = "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";
 	@Autowired
 	AdminDao adminDao;
 
@@ -221,7 +223,7 @@ public class AdminController {
 		menu.setFoodDescription(foodDescription);
 		menu.setFoodType(foodType);
 		
-		BasicAWSCredentials cred = new BasicAWSCredentials("AKIATYVICPYH2CYRSP4C", "7v3E7m3zCL3yYdjpS7IPGPA9J4Ywz9BDdlLW1WqH");
+		BasicAWSCredentials cred = new BasicAWSCredentials(ACCESS_KEY, SECRET_KEY);
 		
 		AmazonS3 s3client = AmazonS3Client.builder()
 							.withRegion("ap-southeast-1")

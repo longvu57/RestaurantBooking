@@ -42,19 +42,19 @@
             <div id="errormessage"></div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <form:input type="date" class="form-control label-floating is-empty" path="date" id="date" placeholder="Date" data-rule="required" data-msg="This field is required" />
+                <form:input type="date" class="form-control label-floating is-empty" path="date" id="date" placeholder="Date" data-rule="required" required="true"/>
                 <div class="validation"></div>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <form:input type="time" class="form-control label-floating is-empty" path="time" id="time" placeholder="Time" data-rule="required" data-msg="This field is required" />
+                <form:input type="time" class="form-control label-floating is-empty" path="time" id="time" placeholder="Time" data-rule="required" required="true" />
                 <div class="validation"></div>
               </div>
             </div>
             <div class="col-md-6 col-sm-6 contact-form">
               <div class="form-group">
-                <form:select path="seatName" class="form-control">
+                <form:select path="seatName" class="form-control" required="true">
                 <c:forEach var="seatName" items="${seatNames}">
                 	<form:option value="${seatName}">${seatName}</form:option>
                 </c:forEach>                	   
@@ -64,7 +64,7 @@
             </div>
             <div class="col-md-12 contact-form">
               <div class="form-group label-floating is-empty">
-                <form:textarea class="form-control" path="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></form:textarea>
+                <form:textarea class="form-control" path="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message" required="true"></form:textarea>
                 <div class="validation"></div>
               </div>
 
